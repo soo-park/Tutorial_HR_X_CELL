@@ -23,8 +23,8 @@ class TableView {
     removeChildren(this.headerRowEl);
     // get letters and build elements
     getLetterRange('A', this.model.numCols)
-      .map(colLablel => createTH(colLable))
-      .forEach(th => this.headerrowEl.appendChild(th));
+      .map(colLabel => createTH(colLabel))
+      .forEach(th => this.headerRowEl.appendChild(th));
   }
 
 }

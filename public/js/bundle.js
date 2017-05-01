@@ -2,7 +2,7 @@
 const TableModel = require('./table-model');
 const TableView = require('./table-view');
 
-const model = new TableModle();
+const model = new TableModel();
 const tableView = new TableView(model);
 tableView.init();
 
@@ -110,8 +110,8 @@ class TableView {
     removeChildren(this.headerRowEl);
     // get letters and build elements
     getLetterRange('A', this.model.numCols)
-      .map(colLablel => createTH(colLable))
-      .forEach(th => this.headerrowEl.appendChild(th));
+      .map(colLabel => createTH(colLabel))
+      .forEach(th => this.headerRowEl.appendChild(th));
   }
 
 }
