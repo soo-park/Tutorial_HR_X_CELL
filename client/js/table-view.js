@@ -25,6 +25,11 @@ class TableView {
     this.renderFormulaBar();
   }
 
+  getSumCell(col, row) {
+    this.currentSumRow = { col: col, row: row};
+    this 
+  }
+
   // to prevent value "undefined" showing in DOM, substitute the empty string
   normalizeValueForRendering(value) {
     return value || "";
@@ -85,6 +90,8 @@ class TableView {
   handleFormulaBarChange(evt) {
     const value = this.formulaBarEl.value;
     this.model.setValue(this.currentCellLocation, value);
+    // FIXME: 
+    // this.model.setValue(this.getSumCell(col,row), value);
     this.renderTableBody();
     this.renderSumRow();
   }
