@@ -18,8 +18,7 @@ const getLetterRange = function(firstLetter = 'A', numLetters) {
 
 module.exports = {
   getRange: getRange,
-  // when adding a new function, don't forget to add 
-  // getLetterRange: getLetterRange to export
+  // when adding a new function, don't forget to add to export
   // otherwise, you get "cannot find" error
   getLetterRange: getLetterRange
 };
