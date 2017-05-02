@@ -213,14 +213,6 @@ class TableView {
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
   }
 
-  // FIXME: need the number added in sum cell
-  handleAddNumToSumCell(col, row) {
-    const value = this.formulaBarEl.value;
-    // this.model.setValue(this.currentCellLocation, value);
-    // this.renderTableBody();
-    // this.renderSumRow();ß
-  }
-
   handleFormulaBarChange(evt) {
     const value = this.formulaBarEl.value;
     this.model.setValue(this.currentCellLocation, value);
