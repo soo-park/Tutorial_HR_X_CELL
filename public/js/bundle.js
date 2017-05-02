@@ -204,6 +204,18 @@ class TableView {
   attachEventHandlers() {
     this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
+    document.getElementById('add-col').addEventListener('click', this.handleAddColClick.bind(this));
+    document.getElementById('add-row').addEventListener('click', this.handleAddRowClick.bind(this));
+  }
+
+  handleAddColClick(evt) {
+    this.model.numCols = this.model.numCols + 1;
+    this.init();
+  }
+
+  handleAddRowClick(evt) {
+    this.model.numRows = this.model.numRows + 1;
+    this.init();
   }
 
   handleFormulaBarChange(evt) {
