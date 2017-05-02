@@ -123,13 +123,20 @@ class TableView {
   }
 
   handleAddColClick(evt) {
-    this.model.numCols = this.model.numCols + 1;
-    this.init();
+    // pick the table
+    var table = document.getElementById("sheet-current").getElementsByTagName('TBODY')[0];
+    // in table, insert a row to the bottom to the next
+    var rows = table.getElementsByTagName('TR')
+    var currentNumRow = rows.length;
+    var currentNumCol = rows[0].getElementsByTagName('TD').length;
+    for (let i=0; i < currentNumRow-1; i++) {
+      console.log();
+    } 
   }
 
   handleAddRowClick(evt) {
-    this.model.numRows = this.model.numRows + 1;
-    this.init();
+    // this.model.numRows = this.model.numRows + 1;
+    // this.init();
   }
 
   handleFormulaBarChange(evt) {

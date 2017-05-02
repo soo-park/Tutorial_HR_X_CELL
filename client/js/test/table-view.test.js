@@ -123,4 +123,22 @@ describe('table-view', () => {
     });
   });
 
+  describe('add sum row', () => {
+    it('has empty string when starting', () => {
+      // set up the initial state
+      const numCols = 6;
+      const numRows = 10;
+      const model = new TableModel(numCols, numRows);
+      const view = new TableView(model);
+      view.init();
+
+      // inspect the initial state
+      let ths = ;
+      
+
+      // inspect the resulting state
+
+    })
+  })
+
 });
