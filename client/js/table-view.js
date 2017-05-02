@@ -11,7 +11,6 @@ class TableView {
     this.initCurrentCell();
     this.renderTable();
     this.attachEventHandlers();
-    this.initSumCell();
   }
 
   initDomReferences() {
@@ -25,10 +24,6 @@ class TableView {
     this.renderFormulaBar();
   }
 
-  initSumCell() {
-    this.sumCellLocation = { col: 0, row: 22 };
-  }
-
   // to prevent value "undefined" showing in DOM, substitute the empty string
   normalizeValueForRendering(value) {
     return value || "";
@@ -38,12 +33,6 @@ class TableView {
     const currentCellValue = this.model.getValue(this.currentCellLocation);
     this.formulaBarEl.value = this.normalizeValueForRendering(currentCellValue);
     this.formulaBarEl.focus();
-  }
-
-  renderSumCell() {
-    const prevSumCellValue = this.model.getValue(this.currentSumCellLocation);
-    this.formulaBarEl.value = this.normalizeValueForRendering(currentCellValue);
-    this.formulaBarEl.focus();    
   }
 
   renderTable() {
