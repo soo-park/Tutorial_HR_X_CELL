@@ -97,7 +97,7 @@ class TableView {
     this.initCurrentCell();
     this.renderTable();
     this.attachEventHandlers();
-    this.renderSumRow();
+    this.initSumCell();
   }
 
   initDomReferences() {
@@ -111,6 +111,10 @@ class TableView {
     this.renderFormulaBar();
   }
 
+  initSumCell() {
+    this.sumCellLocation = { col: 0, row: 22 };
+  }
+
   // to prevent value "undefined" showing in DOM, substitute the empty string
   normalizeValueForRendering(value) {
     return value || "";
@@ -122,10 +126,16 @@ class TableView {
     this.formulaBarEl.focus();
   }
 
+  renderSumCell() {
+    const prevSumCellValue = this.model.getValue(this.currentSumCellLocation);
+    this.formulaBarEl.value = this.normalizeValueForRendering(currentCellValue);
+    this.formulaBarEl.focus();    
+  }
+
   renderTable() {
     this.renderTableHeader();
     this.renderTableBody();
-  }
+   }
 
   renderTableHeader() {
     removeChildren(this.headerRowEl);
@@ -157,22 +167,11 @@ class TableView {
           td.className = 'current-cell';
         }
       }
-      fragment.appendChild(tr);
+      fragment.appendChild(tr);    
     }
     removeChildren(this.sheetBodyEl);
     this.sheetBodyEl.appendChild(fragment);
-  }
-
-  attachEventHandlers() {
-    this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
-    this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
-  }
-
-  handleFormulaBarChange(evt) {
-    const value = this.formulaBarEl.value;
-    this.model.setValue(this.currentCellLocation, value);
-    this.renderTableBody();
-    this.renderSumRow();
+    this.renderSumRow()
   }
 
   renderSumRow() {
@@ -185,27 +184,47 @@ class TableView {
     // make it possible to add CSS to the row
     newRow.className = 'sum-row';
 
-    // // FIXME: get the table columns. Currently hardcoded
-    // var th = document.querySelectorAll('table thead tr:first-child th');
-    // var cols = [].reduce.call(th, function (p, c) {
-    //   var colspan = c.getAttribute('colspan') || 1;
-    //   return p + +colspan;
-    //   console.log(p);
-    // }, 0);
-    // document.getElementById("sheet-current").and then say something to append
-
-    var width = 10; 
+    var width = this.model.numCols;
+    var height = this.model.numRows;
     for (let i=0; i<width; i++) {
+      // default value to add up
+      var colSum = 0;
+      for (let j=0; j<height; j++) {
+        const position = {col: i, row: j};
+        const value = this.model.getValue(position);
+        if (!isNaN(value)) {
+          // add the values
+          colSum += Number(value);
+        }
+      }
+      // pick the last row and set value the sum
       // insert a cell in the row at index 0
       var newValue = newRow.insertCell(i);
 
       // Append a new text node to the cell
-      var newText = document.createTextNode('0');
+      var newText = document.createTextNode(colSum);
       newValue.appendChild(newText);
-
-      // // FIXME: make it not selectable by clicks
-      // newValue.disabled = true;
+      // newValue.className = 'sum-cell-'+i;
     }
+  }
+
+  attachEventHandlers() {
+    this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
+    this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
+  }
+
+  // FIXME: need the number added in sum cell
+  handleAddNumToSumCell(col, row) {
+    const value = this.formulaBarEl.value;
+    // this.model.setValue(this.currentCellLocation, value);
+    // this.renderTableBody();
+    // this.renderSumRow();ß
+  }
+
+  handleFormulaBarChange(evt) {
+    const value = this.formulaBarEl.value;
+    this.model.setValue(this.currentCellLocation, value);
+    this.renderTableBody();
   }
 
   handleSheetClick(evt) {
@@ -215,11 +234,9 @@ class TableView {
     this.currentCellLocation = { col: col, row: row };
     this.renderTableBody();
     this.renderFormulaBar();
-    this.renderSumRow();
   }
 }
 
 module.exports = TableView;
-
 
 },{"./array-util":2,"./dom-util":3}]},{},[1]);
