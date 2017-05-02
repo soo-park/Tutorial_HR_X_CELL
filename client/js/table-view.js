@@ -79,19 +79,19 @@ class TableView {
 
   renderSumRow() {
     // Find a <table> element with id="myTable":
-    var tableBody = document.getElementById("sheet-current").getElementsByTagName('TBODY')[0];
+    let tableBody = document.getElementById("sheet-current").getElementsByTagName('TBODY')[0];
 
     // Insert a row in the table at the last row
-    var newRow = tableBody.insertRow(tableBody.rows.length);
+    let newRow = tableBody.insertRow(tableBody.rows.length);
 
     // make it possible to add CSS to the row
     newRow.className = 'sum-row';
 
-    var width = this.model.numCols;
-    var height = this.model.numRows;
+    let width = this.model.numCols;
+    let height = this.model.numRows;
     for (let i=0; i<width; i++) {
       // default value to add up
-      var colSum = 0;
+      let colSum = 0;
       for (let j=0; j<height; j++) {
         const position = {col: i, row: j};
         const value = this.model.getValue(position);
@@ -102,14 +102,14 @@ class TableView {
       }
       // pick the last row and set value the sum
       // insert a cell in the row at index 0
-      var newValue = newRow.insertCell(i);
+      let newValue = newRow.insertCell(i);
 
       // Append a new text node to the cell
       if (colSum != 0) {
-        var newText = document.createTextNode(colSum);
+        let newText = document.createTextNode(colSum);
         newValue.appendChild(newText);
       } else {
-        var newText = document.createTextNode('');
+        let newText = document.createTextNode('');
         newValue.appendChild(newText);        
       }
     }
@@ -123,20 +123,20 @@ class TableView {
   }
 
   handleAddColClick(evt) {
-    // pick the table
-    var table = document.getElementById("sheet-current").getElementsByTagName('TBODY')[0];
-    // in table, insert a row to the bottom to the next
-    var rows = table.getElementsByTagName('TR')
-    var currentNumRow = rows.length;
-    var currentNumCol = rows[0].getElementsByTagName('TD').length;
-    for (let i=0; i < currentNumRow-1; i++) {
-      console.log();
-    } 
+    // this.model.numCols = this.model.numCols + 1;
+    // this.init();
+    console.log('yay');
   }
 
   handleAddRowClick(evt) {
-    // this.model.numRows = this.model.numRows + 1;
-    // this.init();
+    // pick the table
+    let table = document.getElementById("sheet-current");
+    let body = table.getElementsByTagName('TBODY')[0];
+    // in table, insert a row to the bottom to the next
+    let rows = body.getElementsByTagName('TR')
+    let currentNumRow = rows.length;
+    let currentNumCol = rows[0].getElementsByTagName('TD').length;
+    cell = table.insertRow(1);
   }
 
   handleFormulaBarChange(evt) {
