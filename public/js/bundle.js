@@ -191,8 +191,13 @@ class TableView {
       var newValue = newRow.insertCell(i);
 
       // Append a new text node to the cell
-      var newText = document.createTextNode(colSum);
-      newValue.appendChild(newText);
+      if (colSum != 0) {
+        var newText = document.createTextNode(colSum);
+        newValue.appendChild(newText);
+      } else {
+        var newText = document.createTextNode('');
+        newValue.appendChild(newText);        
+      }
     }
   }
 
