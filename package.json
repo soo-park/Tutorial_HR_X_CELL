@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.2",
-    "node": "0.0.0"
+    "node": "^7.9.0"
   },
   "devDependencies": {
     "browserify": "^14.3.0",
