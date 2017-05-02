@@ -9,12 +9,12 @@
     "test": "jest",
     "start": "node index.js",
     "postinstall": "browserify client/app.js -o client/bundle.js"
-
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "node": "0.0.0"
   },
   "devDependencies": {
     "browserify": "^14.3.0",
