@@ -118,7 +118,6 @@ class TableView {
       // Append a new text node to the cell
       var newText = document.createTextNode(colSum);
       newValue.appendChild(newText);
-      // newValue.className = 'sum-cell-'+i;
     }
   }
 
