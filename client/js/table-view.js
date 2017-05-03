@@ -68,13 +68,15 @@ class TableView {
         if (col === 0) {
           td.innerHTML = cnt;
           cnt += 1;
+          if (this.isCurrentCell(col,row)) {
+            tr.className = 'current-row';
+          }
+        }else{
+          if (this.isCurrentCell(col, row)) {
+            td.className = 'current-cell';
+          }          
         }
-
         tr.appendChild(td);
-
-        if (this.isCurrentCell(col, row)) {
-          td.className = 'current-cell';
-        }
       }
       fragment.appendChild(tr);    
     }
@@ -99,13 +101,14 @@ class TableView {
     for (let i=0; i<width; i++) {
       // default value to add up
       let colSum = 0;
-
-      for (let j=0; j<height; j++) {
-        const position = {col: i, row: j};
-        const value = this.model.getValue(position);
-        if (!isNaN(value)) {
-          // add the values
-          colSum += Number(value);
+      if (i !== 0) {
+        for (let j=0; j<height; j++) {
+          const position = {col: i, row: j};
+          const value = this.model.getValue(position);
+          if (!isNaN(value)) {
+            // add the values
+            colSum += Number(value);
+          }
         }
       }
       // pick the last row and set value the sum

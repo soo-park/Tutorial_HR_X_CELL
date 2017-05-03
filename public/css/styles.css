@@ -15,6 +15,10 @@ td {
   background-color: pink;
 }
 
+.current-row {
+  background-color: lightblue; 
+}
+
 .sum-row {
   background-color: lightgreen;
 }
