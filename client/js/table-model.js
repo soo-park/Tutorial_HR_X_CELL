@@ -16,6 +16,17 @@ class TableModel {
   setValue(location, value) {
     this.data[this._getCellId(location)] = value;
   }
+
+
+  // accessors: setting and getting
+  incrementColNum() {
+    this.numCols += 1;
+  }
+
+  incrementRowNum() {
+    this.numRows += 1;
+  }
+
 }
 
 module.exports = TableModel;

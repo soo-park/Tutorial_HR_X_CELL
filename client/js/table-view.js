@@ -6,6 +6,7 @@ class TableView {
     this.model = model;
   }
 
+
   init() {
     this.initDomReferences();
     this.initCurrentCell();
@@ -87,11 +88,13 @@ class TableView {
     // make it possible to add CSS to the row
     newRow.className = 'sum-row';
 
+    // sum up the values and add the cell
     let width = this.model.numCols;
     let height = this.model.numRows;
     for (let i=0; i<width; i++) {
       // default value to add up
       let colSum = 0;
+
       for (let j=0; j<height; j++) {
         const position = {col: i, row: j};
         const value = this.model.getValue(position);
@@ -102,15 +105,15 @@ class TableView {
       }
       // pick the last row and set value the sum
       // insert a cell in the row at index 0
-      let newValue = newRow.insertCell(i);
+      let newCell = newRow.insertCell(i);
 
       // Append a new text node to the cell
       if (colSum != 0) {
         let newText = document.createTextNode(colSum);
-        newValue.appendChild(newText);
+        newCell.appendChild(newText);
       } else {
         let newText = document.createTextNode('');
-        newValue.appendChild(newText);        
+        newCell.appendChild(newText);        
       }
     }
   }
@@ -123,20 +126,13 @@ class TableView {
   }
 
   handleAddColClick(evt) {
-    // this.model.numCols = this.model.numCols + 1;
-    // this.init();
-    console.log('yay');
+    this.model.incrementColNum();
+    this.renderTable();
   }
 
   handleAddRowClick(evt) {
-    // pick the table
-    let table = document.getElementById("sheet-current");
-    let body = table.getElementsByTagName('TBODY')[0];
-    // in table, insert a row to the bottom to the next
-    let rows = body.getElementsByTagName('TR')
-    let currentNumRow = rows.length;
-    let currentNumCol = rows[0].getElementsByTagName('TD').length;
-    cell = table.insertRow(1);
+    this.model.incrementRowNum();
+    this.renderTable();
   }
 
   handleFormulaBarChange(evt) {
