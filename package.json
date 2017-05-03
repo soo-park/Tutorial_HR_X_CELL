@@ -11,7 +11,7 @@
     "watch": "watchify client/js/app.js -o public/js/bundle.js",
     "test": "jest",
     "start": "node index.js",
-    "postinstall": "browserify client/app.js -o client/bundle.js"
+    "postinstall": "browserify client/app.js -o public/js//bundle.js"
   },
   "author": "",
   "license": "MIT",
