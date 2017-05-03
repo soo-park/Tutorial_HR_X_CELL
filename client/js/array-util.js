@@ -4,7 +4,7 @@ const getRange = function(fromNum, toNum) {
     (unused, i) => i + fromNum);
 };
 
-const getLetterRange = function(firstLetter = 'A', numLetters) {
+const getLetterRange = function(firstLetter = '@', numLetters) {
   // GET UNICODE VALUE: .charCodeAt(index)
   // get numeric Unicode code point of the character at the index of the string
   // eg. charracter is "A" >> code is 65
@@ -13,7 +13,12 @@ const getLetterRange = function(firstLetter = 'A', numLetters) {
   return getRange(rangeStart, rangeEnd)
     // TURN THE UNICODE VALUE INTO CHARACTER: .fromCharCode(unicode)
     // produce the char that corresponds to the given Unicode code point
-    .map(charCode => String.fromCharCode(charCode));
+    .map(charCode => { 
+      let char = String.fromCharCode(charCode)
+      if (char === "@") {
+        char = ""
+      }
+      return char; });
 };
 
 module.exports = {

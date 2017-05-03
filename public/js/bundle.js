@@ -13,7 +13,7 @@ const getRange = function(fromNum, toNum) {
     (unused, i) => i + fromNum);
 };
 
-const getLetterRange = function(firstLetter = 'A', numLetters) {
+const getLetterRange = function(firstLetter = '@', numLetters) {
   // GET UNICODE VALUE: .charCodeAt(index)
   // get numeric Unicode code point of the character at the index of the string
   // eg. charracter is "A" >> code is 65
@@ -22,7 +22,12 @@ const getLetterRange = function(firstLetter = 'A', numLetters) {
   return getRange(rangeStart, rangeEnd)
     // TURN THE UNICODE VALUE INTO CHARACTER: .fromCharCode(unicode)
     // produce the char that corresponds to the given Unicode code point
-    .map(charCode => String.fromCharCode(charCode));
+    .map(charCode => { 
+      let char = String.fromCharCode(charCode)
+      if (char === "@") {
+        char = ""
+      }
+      return char; });
 };
 
 module.exports = {
@@ -91,6 +96,16 @@ class TableModel {
     this.numRows += 1;
   }
 
+  // accessors: setting and getting
+  decrementColNum() {
+    this.numCols -= 1;
+  }
+
+  decrementRowNum() {
+    this.numRows -= 1;
+  }
+
+
 }
 
 module.exports = TableModel;
@@ -102,7 +117,6 @@ class TableView {
   constructor(model) {
     this.model = model;
   }
-
 
   init() {
     this.initDomReferences();
@@ -118,7 +132,7 @@ class TableView {
   }
 
   initCurrentCell() {
-    this.currentCellLocation = { col: 0, row: 0 };
+    this.currentCellLocation = { col: 1, row: 0 };
     this.renderFormulaBar();
   }
 
@@ -141,7 +155,7 @@ class TableView {
   renderTableHeader() {
     removeChildren(this.headerRowEl);
     // get letters and build elements
-    getLetterRange('A', this.model.numCols)
+    getLetterRange('@', this.model.numCols)
       .map(colLabel => createTH(colLabel))
       .forEach(th => this.headerRowEl.appendChild(th));
   }
@@ -149,19 +163,25 @@ class TableView {
   isCurrentCell(col, row) {
     return this.currentCellLocation.col === col
            &&
-           this.currentCellLocation.row === row;
+           this.currentCellLocation.row === row
   }
 
   renderTableBody() {
     // document fragment makes it possible to change part of the DOM
     // and then load the entire thing so that user will not see flickers
     const fragment = document.createDocumentFragment();
+    let cnt = 1;
     for (let row = 0; row < this.model.numRows; row++) {
       const tr = createTR();
       for (let col = 0; col < this.model.numCols; col++) {
         const position = {col: col, row: row};
         const value = this.model.getValue(position);
         const td = createTD(value);
+        if (col === 0) {
+          td.innerHTML = cnt;
+          cnt += 1;
+        }
+
         tr.appendChild(td);
 
         if (this.isCurrentCell(col, row)) {
@@ -220,6 +240,8 @@ class TableView {
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
     document.getElementById('add-col').addEventListener('click', this.handleAddColClick.bind(this));
     document.getElementById('add-row').addEventListener('click', this.handleAddRowClick.bind(this));
+    document.getElementById('del-col').addEventListener('click', this.handleDelColClick.bind(this));
+    document.getElementById('del-row').addEventListener('click', this.handleDelRowClick.bind(this));
   }
 
   handleAddColClick(evt) {
@@ -229,6 +251,16 @@ class TableView {
 
   handleAddRowClick(evt) {
     this.model.incrementRowNum();
+    this.renderTable();
+  }
+
+  handleDelColClick(evt) {
+    this.model.decrementColNum();
+    this.renderTable();
+  }
+
+  handleDelRowClick(evt) {
+    this.model.decrementRowNum();
     this.renderTable();
   }
 

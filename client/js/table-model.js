@@ -27,6 +27,16 @@ class TableModel {
     this.numRows += 1;
   }
 
+  // accessors: setting and getting
+  decrementColNum() {
+    this.numCols -= 1;
+  }
+
+  decrementRowNum() {
+    this.numRows -= 1;
+  }
+
+
 }
 
 module.exports = TableModel;

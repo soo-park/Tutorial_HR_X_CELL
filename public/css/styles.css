@@ -8,6 +8,7 @@ td {
   min-width: 100px;
   height: 25px;
   padding: 3px;
+  text-align: center;
 }
 
 .current-cell {
