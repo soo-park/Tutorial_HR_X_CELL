@@ -1,6 +1,9 @@
 {
   "name": "x-cell",
   "version": "1.0.0",
+  "engines": {
+    "node": "7.9.0"
+  },
   "description": "world's smallest spreadsheet",
   "main": "index.js",
   "scripts": {
@@ -13,7 +16,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "browserify": "^14.3.0",
     "express": "^4.15.2"
   },
   "devDependencies": {
