@@ -213,11 +213,11 @@ class TableView {
     // sum up the values and add the cell
     let width = this.model.numCols;
     let height = this.model.numRows;
-    for (let i=0; i<width; i++) {
+    for (let i = 0; i < width; i++) {
       // default value to add up
       let colSum = 0;
       if (i !== 0) {
-        for (let j=0; j<height; j++) {
+        for (let j = 0; j < height; j++) {
           const position = {col: i, row: j};
           const value = this.model.getValue(position);
           if (!isNaN(value)) {
