@@ -1,9 +1,6 @@
 {
   "name": "x-cell",
   "version": "1.0.0",
-  "engines": {
-    "node": "7.9.0"
-  },
   "description": "world's smallest spreadsheet",
   "main": "index.js",
   "scripts": {
@@ -25,10 +22,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/npm.git"
+    "url": "https://github.com/soo-park/Tutorial_HR_X_CELL.git"
   },
   "bugs": {
     "url": "https://github.com/soo-park/Tutorial_HR_X_CELL/issues"
   },
   "homepage": "https://github.com/soo-park/Tutorial_HR_X_CELL#readme"
 }
+
