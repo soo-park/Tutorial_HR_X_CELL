@@ -65,13 +65,16 @@ class TableView {
         const position = {col: col, row: row};
         const value = this.model.getValue(position);
         const td = createTD(value);
+        // add row number column
         if (col === 0) {
           td.innerHTML = cnt;
           cnt += 1;
+          // make number column highlight corresponding row when clicked
           if (this.isCurrentCell(col,row)) {
             tr.className = 'current-row';
           }
         }else{
+          // make current cell highlighted when clicked
           if (this.isCurrentCell(col, row)) {
             td.className = 'current-cell';
           }          
